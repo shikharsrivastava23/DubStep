@@ -65,7 +65,7 @@
         android:layout_marginTop="15dp"
         android:ems="10"
         android:hint="Password"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:textAlignment="viewStart"
         android:textColorHighlight="#FF5722"
         android:textColorLink="#4CAF50"

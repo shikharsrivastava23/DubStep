@@ -55,7 +55,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 
                 String email = txtemail.getText().toString().trim();
-                String password = txtemail.getText().toString().trim();
+                String password = txtpassword.getText().toString().trim();
 
 
                 if (TextUtils.isEmpty(email)) {
