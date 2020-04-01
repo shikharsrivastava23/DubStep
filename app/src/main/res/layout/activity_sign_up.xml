@@ -122,6 +122,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="45dp"
             android:text="Regular"
+            android:id="@+id/RegularButton"
             android:textSize="15sp"
             />
 
@@ -130,6 +131,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="26dp"
             android:text="Irregular"
+            android:id="@+id/IrregularButton"
             android:textSize="15sp"
             />
 
