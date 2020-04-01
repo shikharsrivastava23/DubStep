@@ -3,6 +3,7 @@ package com.example.dubstep;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -22,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText txtemail, txtpassword;
     Button btn_login;
     private FirebaseAuth firebaseAuth;
+    ProgressDialog progressDialog;
 
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
@@ -53,6 +55,15 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
+
+                progressDialog = new ProgressDialog(LoginActivity.this);
+                progressDialog.show();
+                progressDialog.setContentView(R.layout.progress_dialog);
+                progressDialog.getWindow().setBackgroundDrawableResource(
+                        android.R.color.transparent
+                );
+
                 String email = txtemail.getText().toString().trim();
                 String password = txtpassword.getText().toString().trim();
 
@@ -72,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
 
+                                    progressDialog.dismiss();
                                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
                                 } else {
