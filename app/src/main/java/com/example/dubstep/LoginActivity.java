@@ -69,11 +69,13 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(LoginActivity.this,  "Please Enter Email",Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
                     Toast.makeText(LoginActivity.this,  "Please Enter Password",Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
                     return;
                 }
 
@@ -88,6 +90,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                 } else {
 
+                                    progressDialog.dismiss();
                                     Toast.makeText(LoginActivity.this,  "Login Failed or User not Available",Toast.LENGTH_SHORT).show();
 
                                 }

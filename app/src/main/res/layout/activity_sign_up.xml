@@ -104,36 +104,34 @@
     </RadioGroup>
 
     <RadioGroup
+        android:id="@+id/CustomerTypeGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="20dp"
-        android:visibility="visible"
-        android:id="@+id/CustomerTypeGroup">
+        android:orientation="horizontal"
+        android:visibility="invisible">
+
+        <RadioButton
+            android:id="@+id/RegularButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:text="Regular"
+            android:textSize="15sp" />
+
+        <RadioButton
+            android:id="@+id/IrregularButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="26dp"
+            android:text="Irregular"
+            android:textSize="15sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Type"
             android:textSize="18sp" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="45dp"
-            android:text="Regular"
-            android:id="@+id/RegularButton"
-            android:textSize="15sp"
-            />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="26dp"
-            android:text="Irregular"
-            android:id="@+id/IrregularButton"
-            android:textSize="15sp"
-            />
 
     </RadioGroup>
     
