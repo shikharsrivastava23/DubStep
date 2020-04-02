@@ -52,10 +52,27 @@ public class SignUpActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference("user");
 
         firebaseAuth = FirebaseAuth.getInstance();
+        CustomerTypeGroup.setVisibility(View.INVISIBLE);
 
-        if (customerButton.isChecked()){
-            CustomerTypeGroup.setVisibility(View.VISIBLE);
-        }
+        customerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (customerButton.isChecked()){
+                    CustomerTypeGroup.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        riderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (riderButton.isChecked()){
+                    CustomerTypeGroup.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+
 
         SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +87,15 @@ public class SignUpActivity extends AppCompatActivity {
                 String Role = "";
                 String CustomerType = "";
 
+                if (TextUtils.isEmpty(fullName)) {
+                    Toast.makeText(SignUpActivity.this,  "Please Enter Full Name",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (TextUtils.isEmpty(Username)) {
+                    Toast.makeText(SignUpActivity.this,  "Please Enter Username",Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(SignUpActivity.this,  "Please Enter Email",Toast.LENGTH_SHORT).show();
@@ -81,21 +107,13 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
 
-                if (TextUtils.isEmpty(fullName)) {
-                    Toast.makeText(SignUpActivity.this,  "Please Enter Full Name",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (TextUtils.isEmpty(Username)) {
-                    Toast.makeText(SignUpActivity.this,  "Please Enter Username",Toast.LENGTH_SHORT).show();
-                    return;
-                }
 
                 if (customerButton.isChecked() == false && riderButton.isChecked() == false) {
                     Toast.makeText(SignUpActivity.this,  "Please select either Customer or Rider",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (customerButton.isChecked()) {
+
                     if (regularButton.isChecked() == false && irregularButton.isChecked() == false) {
                         Toast.makeText(SignUpActivity.this, "Please select either Regular or Irregular", Toast.LENGTH_SHORT).show();
                         return;

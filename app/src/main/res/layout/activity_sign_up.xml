@@ -109,7 +109,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:orientation="horizontal"
-        android:visibility="invisible">
+        android:visibility="visible">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Type"
+            android:textSize="18sp" />
 
         <RadioButton
             android:id="@+id/RegularButton"
@@ -127,11 +132,7 @@
             android:text="Irregular"
             android:textSize="15sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Type"
-            android:textSize="18sp" />
+
 
     </RadioGroup>
     
