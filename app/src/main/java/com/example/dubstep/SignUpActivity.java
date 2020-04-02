@@ -3,6 +3,7 @@ package com.example.dubstep;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -29,6 +30,7 @@ public class SignUpActivity extends AppCompatActivity {
     Button SignUp;
     RadioGroup CustomerTypeGroup;
     private FirebaseAuth firebaseAuth;
+    ProgressDialog progressDialog1;
 
     DatabaseReference databaseReference;
 
@@ -78,7 +80,12 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-
+                progressDialog1 = new ProgressDialog(SignUpActivity.this);
+                progressDialog1.show();
+                progressDialog1.setContentView(R.layout.progress_dialog);
+                progressDialog1.getWindow().setBackgroundDrawableResource(
+                        android.R.color.transparent
+                );
 
                 final String email = txtemail.getText().toString().trim();
                 String password = txtpassword.getText().toString().trim();
@@ -89,33 +96,39 @@ public class SignUpActivity extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(fullName)) {
                     Toast.makeText(SignUpActivity.this,  "Please Enter Full Name",Toast.LENGTH_SHORT).show();
+                    progressDialog1.dismiss();
                     return;
                 }
 
                 if (TextUtils.isEmpty(Username)) {
                     Toast.makeText(SignUpActivity.this,  "Please Enter Username",Toast.LENGTH_SHORT).show();
+                    progressDialog1.dismiss();
                     return;
                 }
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(SignUpActivity.this,  "Please Enter Email",Toast.LENGTH_SHORT).show();
+                    progressDialog1.dismiss();
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
                     Toast.makeText(SignUpActivity.this,  "Please Enter Password",Toast.LENGTH_SHORT).show();
+                    progressDialog1.dismiss();
                     return;
                 }
 
 
                 if (customerButton.isChecked() == false && riderButton.isChecked() == false) {
                     Toast.makeText(SignUpActivity.this,  "Please select either Customer or Rider",Toast.LENGTH_SHORT).show();
+                    progressDialog1.dismiss();
                     return;
                 }
                 if (customerButton.isChecked()) {
 
                     if (regularButton.isChecked() == false && irregularButton.isChecked() == false) {
                         Toast.makeText(SignUpActivity.this, "Please select either Regular or Irregular", Toast.LENGTH_SHORT).show();
+                        progressDialog1.dismiss();
                         return;
                     }
                     Role = "Customer";
@@ -152,6 +165,7 @@ public class SignUpActivity extends AppCompatActivity {
                                          public void onComplete(@NonNull Task<Void> task) {
                                              Toast.makeText(SignUpActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
                                              startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                             progressDialog1.dismiss();
                                          }
                                      });
 
