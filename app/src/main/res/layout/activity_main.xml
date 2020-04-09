@@ -286,16 +286,17 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/cart_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|start"
                     android:layout_margin="32dp"
                     android:clickable="true"
                     android:src="@drawable/cart_icon"
-                    app:fabSize="normal"
-                    app:tint="@android:color/white"
                     app:backgroundTint="@color/colorPrimaryDark"
-                    app:rippleColor="@color/colorAccent"/>
+                    app:fabSize="normal"
+                    app:rippleColor="@color/colorAccent"
+                    app:tint="@android:color/white" />
 
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
