@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser mFireBaseUser = firebaseAuth.getCurrentUser();
                 if (mFireBaseUser != null){
-
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     //Toast.makeText(LoginActivity.this,  "You are logged in",Toast.LENGTH_LONG).show();
                 }
                 else {
@@ -88,6 +88,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                     progressDialog.dismiss();
                                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                    finish();
 
                                 } else {
 
