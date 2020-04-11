@@ -13,6 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-
+    private GoogleSignInClient mGoogleSignInClient;
     private FloatingActionButton mCartButton;
 
     @Override
@@ -36,6 +39,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         firebaseAuth = FirebaseAuth.getInstance();
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         mAuthStateListener = new FirebaseAuth.AuthStateListener(){
             @Override
@@ -95,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.log_out:
                 FirebaseAuth.getInstance().signOut();
+                mGoogleSignInClient.signOut();
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 finish();
         }
