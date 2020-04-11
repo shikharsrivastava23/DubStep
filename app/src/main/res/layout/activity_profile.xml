@@ -19,168 +19,88 @@
         </androidx.appcompat.widget.Toolbar>
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#D3B14343"
+            android:orientation="vertical"
+            android:padding="20dp">
 
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
                 android:layout_marginTop="60dp"
+                android:fontFamily="@font/aclonica"
                 android:text="EDIT PROFILE"
-                android:textSize="30sp"
-                app:layout_constraintBottom_toTopOf="@+id/UsernameTextLayout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textColor="#650E08"
+                android:textSize="30sp" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/UsernameTextLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <EditText
+                android:id="@+id/mFullName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp"
+                android:layout_marginTop="30dp"
+                android:ems="10"
+                android:hint="Full Name"
+                android:inputType="textPersonName"
+                android:textAlignment="viewStart"
+                android:textColorHighlight="#FF5722"
+                android:textColorLink="#4CAF50"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/mUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:ems="10"
                 android:hint="Username"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView6">
+                android:inputType="textPersonName"
+                android:textAlignment="viewStart"
+                android:textColorHighlight="#FF5722"
+                android:textColorLink="#4CAF50"
+                android:textSize="20sp" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/UsernameTextInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/EmailTextLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <EditText
+                android:id="@+id/mEmail"
                 android:layout_width="match_parent"
-                android:layout_height="59dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:ems="10"
                 android:hint="Email"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/UsernameTextLayout">
+                android:inputType="textPersonName"
+                android:textAlignment="viewStart"
+                android:textColorHighlight="#FF5722"
+                android:textColorLink="#4CAF50"
+                android:textSize="20sp" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/EmailTextInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Role"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@+id/radioGroup"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/EmailTextLayout" />
-
-            <RadioGroup
-                android:id="@+id/radioGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkedButton="@+id/rider_button"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2">
-
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/rider_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Rider" />
-
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/customer_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Customer" />
-            </RadioGroup>
-
-            <TextView
-                android:id="@+id/textView_customertype"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Customer Type"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
-
-            <RadioGroup
-                android:id="@+id/radioGroup2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkedButton="@+id/rider_button"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView_customertype">
-
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/regular_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Regular" />
-
-                <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/irregular_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Irregular" />
-
-            </RadioGroup>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/updateprofile_button"
+            <EditText
+                android:id="@+id/mMobileNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
-                android:backgroundTint="@color/colorAccent"
-                android:text="Update Profile"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
+                android:layout_marginTop="30dp"
+                android:ems="10"
+                android:hint="Mobile Number"
+                android:inputType="number"
+                android:textAlignment="viewStart"
+                android:textColorHighlight="#FF5722"
+                android:textColorLink="#4CAF50"
+                android:textSize="20sp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/changepassword_button"
-                style="?attr/materialButtonOutlinedStyle"
+            <Button
+                android:id="@+id/UpdateButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
-                android:text="Change Password"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/updateprofile_button" />
+                android:layout_marginTop="40dp"
+                android:background="@drawable/button_rounded"
+                android:text="UPDATE"
+                android:textColor="#ffffff"
+                android:textSize="25sp" />
 
-
-
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

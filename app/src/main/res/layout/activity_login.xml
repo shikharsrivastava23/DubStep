@@ -43,23 +43,23 @@
         android:textSize="20sp"
         />
 
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/GoogleSignInButton"
+        android:layout_width="141dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="20dp"
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="LOGIN"
         android:textSize="20sp"
         android:textColor="#ffffff"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/button_rounded"
         android:id="@+id/LoginButton"/>
-
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/GoogleSignInButton"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginTop="20dp"
-        android:textColor="#ffffff"
-        android:textSize="20sp" />
 
     <Button
         android:layout_width="match_parent"
