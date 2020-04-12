@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 
+import com.example.dubstep.Interface.ItemClickListener;
 import com.example.dubstep.Model.FoodItem;
 import com.example.dubstep.ViewHolder.FoodItemViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -185,14 +186,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         firebaseAuth.addAuthStateListener(mAuthStateListener);
 
         FirebaseRecyclerOptions<FoodItem> options = new FirebaseRecyclerOptions.Builder<FoodItem>().setQuery(foodref,FoodItem.class).build();
-        FirebaseRecyclerAdapter<FoodItem, FoodItemViewHolder> adapter =
+        final FirebaseRecyclerAdapter<FoodItem, FoodItemViewHolder> adapter =
                 new FirebaseRecyclerAdapter<FoodItem, FoodItemViewHolder>(options) {
+
+                    private ItemClickListener listener;
                     @Override
-                    protected void onBindViewHolder(@NonNull FoodItemViewHolder holder, int position, @NonNull FoodItem model) {
+                    protected void onBindViewHolder(@NonNull final FoodItemViewHolder holder, final int position, @NonNull FoodItem model) {
 
                         holder.mFoodItemName.setText(model.getName());
                         holder.mFoodItemPrice.setText("Price: "+model.getBase_price());
-
+                        holder.mAddToCart.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                holder.mAddToCart.setEnabled(false);
+                                addToCart(getRef(position).getKey());
+                                //Toast.makeText(MainActivity.this,getRef(position).getKey(),Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
 
                     @NonNull
@@ -200,13 +210,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     public FoodItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.food_item_layout,parent,false);
                         FoodItemViewHolder holder = new FoodItemViewHolder(view);
-
                         return holder;
                     }
                 };
 
         recyclerView.setAdapter(adapter);
         adapter.startListening();
+    }
+
+    public void addToCart(String ref){
+        DatabaseReference foodItemRef = foodref.child(ref);
+        foodItemRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                FoodItem addedItem = dataSnapshot.getValue(FoodItem.class);
+                Toast.makeText(MainActivity.this,addedItem.getName(),Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     @Override
