@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 
 import com.example.dubstep.Interface.ItemClickListener;
+import com.example.dubstep.Model.CartItem;
 import com.example.dubstep.Model.FoodItem;
 import com.example.dubstep.ViewHolder.FoodItemViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -29,6 +30,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -41,6 +44,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     Button btn_logout;
@@ -48,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private DatabaseReference userref;
     private DatabaseReference foodref;
+    private DatabaseReference cartref;
 
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
@@ -140,6 +146,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         layoutManager = new LinearLayoutManager(MainActivity.this);
         recyclerView.setLayoutManager(layoutManager);
 
+        cartref = FirebaseDatabase.getInstance().getReference("Cart");
+
     }
 
     private void gotorider() {
@@ -218,13 +226,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         adapter.startListening();
     }
 
-    public void addToCart(String ref){
+    public void addToCart(final String ref){
         DatabaseReference foodItemRef = foodref.child(ref);
         foodItemRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 FoodItem addedItem = dataSnapshot.getValue(FoodItem.class);
-                Toast.makeText(MainActivity.this,addedItem.getName(),Toast.LENGTH_SHORT).show();
+                final HashMap<String,Object> cartMap = new HashMap<>();
+                cartMap.put("Name",addedItem.getName().toString());
+                cartMap.put("Price",addedItem.getBase_price().toString());
+                cartMap.put("Quantity","1");
+
+                cartref.child(firebaseAuth.getCurrentUser().getUid().toString()).child("Products")
+                        .child(ref)
+                        .updateChildren(cartMap)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(MainActivity.this,"Added to Cart",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
             }
 
             @Override
