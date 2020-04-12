@@ -25,7 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    EditText txtFullName, txtusername, txtemail, txtpassword;
+    EditText txtFullName, txtusername, txtemail, txtpassword, txtMobileNumber;
     RadioButton customerButton, riderButton, regularButton, irregularButton;
     Button SignUp;
     RadioGroup CustomerTypeGroup;
@@ -43,6 +43,7 @@ public class SignUpActivity extends AppCompatActivity {
         txtemail = (EditText) findViewById(R.id.EmailEditText);
         txtFullName = (EditText) findViewById(R.id.NameEditText);
         txtusername = (EditText) findViewById(R.id.UsernameEditText);
+        txtMobileNumber = (EditText) findViewById(R.id.MobileNumberEditText);
         txtpassword = (EditText) findViewById(R.id.PasswordEditText);
         SignUp = (Button) findViewById(R.id.SignUpButton);
         customerButton = (RadioButton) findViewById(R.id.CustomerButton);
@@ -91,6 +92,7 @@ public class SignUpActivity extends AppCompatActivity {
                 String password = txtpassword.getText().toString().trim();
                 final String fullName = txtFullName.getText().toString();
                 final String Username = txtusername.getText().toString();
+                final String MobileNumber = txtMobileNumber.getText().toString();
                 String Role = "";
                 String CustomerType = "";
 
@@ -101,6 +103,12 @@ public class SignUpActivity extends AppCompatActivity {
                 }
 
                 if (TextUtils.isEmpty(Username)) {
+                    Toast.makeText(SignUpActivity.this,  "Please Enter Username",Toast.LENGTH_SHORT).show();
+                    progressDialog1.dismiss();
+                    return;
+                }
+
+                if (TextUtils.isEmpty(MobileNumber)) {
                     Toast.makeText(SignUpActivity.this,  "Please Enter Username",Toast.LENGTH_SHORT).show();
                     progressDialog1.dismiss();
                     return;
@@ -152,6 +160,7 @@ public class SignUpActivity extends AppCompatActivity {
                                      user details = new user(
                                             fullName,
                                             Username,
+                                            MobileNumber,
                                             email,
                                              finalRole,
                                              finalCustomerType
