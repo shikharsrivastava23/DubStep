@@ -6,16 +6,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
 
+import com.example.dubstep.Model.FoodItem;
+import com.example.dubstep.ViewHolder.FoodItemViewHolder;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -38,6 +46,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private DatabaseReference userref;
+    private DatabaseReference foodref;
+
+    RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
 
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
@@ -120,7 +132,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         navigationView.setCheckedItem(R.id.nav_home);
 
+        foodref = FirebaseDatabase.getInstance().getReference().child("food_menu");
 
+        recyclerView = findViewById(R.id.main_recyclerview);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(MainActivity.this);
+        recyclerView.setLayoutManager(layoutManager);
 
     }
 
@@ -166,6 +183,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onStart() {
         super.onStart();
         firebaseAuth.addAuthStateListener(mAuthStateListener);
+
+        FirebaseRecyclerOptions<FoodItem> options = new FirebaseRecyclerOptions.Builder<FoodItem>().setQuery(foodref,FoodItem.class).build();
+        FirebaseRecyclerAdapter<FoodItem, FoodItemViewHolder> adapter =
+                new FirebaseRecyclerAdapter<FoodItem, FoodItemViewHolder>(options) {
+                    @Override
+                    protected void onBindViewHolder(@NonNull FoodItemViewHolder holder, int position, @NonNull FoodItem model) {
+
+                        holder.mFoodItemName.setText(model.getName());
+                        holder.mFoodItemPrice.setText("Price: "+model.getBase_price());
+
+                    }
+
+                    @NonNull
+                    @Override
+                    public FoodItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.food_item_layout,parent,false);
+                        FoodItemViewHolder holder = new FoodItemViewHolder(view);
+
+                        return holder;
+                    }
+                };
+
+        recyclerView.setAdapter(adapter);
+        adapter.startListening();
     }
 
     @Override

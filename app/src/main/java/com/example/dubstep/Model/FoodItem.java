@@ -1,7 +1,7 @@
 package com.example.dubstep.Model;
 
 public class FoodItem {
-    String price;
+    String base_price;
     String name;
 
     public FoodItem(){
@@ -9,20 +9,20 @@ public class FoodItem {
     }
 
     public FoodItem(String price, String name) {
-        this.price = price;
+        this.base_price = price;
         this.name = name;
     }
 
-    public String getPrice() {
-        return price;
+    public String getBase_price() {
+        return base_price;
+    }
+
+    public void setBase_price(String base_price) {
+        this.base_price = base_price;
     }
 
     public String getName() {
         return name;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
     }
 
     public void setName(String name) {

@@ -14,7 +14,7 @@ import com.google.android.material.button.MaterialButton;
 public class FoodItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     public TextView mFoodItemName;
-    public ImageView mFoodImage;
+    //public ImageView mFoodImage;
     public TextView mFoodItemPrice;
     public MaterialButton mAddToCart;
 
@@ -23,10 +23,10 @@ public class FoodItemViewHolder extends RecyclerView.ViewHolder implements View.
     public FoodItemViewHolder(@NonNull View itemView) {
         super(itemView);
 
-        mFoodItemName = itemView.findViewById(R.id.food_name);
-        mFoodItemPrice = itemView.findViewById(R.id.food_price);
-        mFoodImage = itemView.findViewById(R.id.food_image);
-        mAddToCart = itemView.findViewById(R.id.addtocart_btn);
+        mFoodItemName = (TextView) itemView.findViewById(R.id.food_name);
+        mFoodItemPrice = (TextView) itemView.findViewById(R.id.food_price);
+        //mFoodImage = (ImageView) itemView.findViewById(R.id.food_image);
+        mAddToCart = (MaterialButton) itemView.findViewById(R.id.addtocart_btn);
     }
 
     public void setItemClickListener(ItemClickListener listener){
