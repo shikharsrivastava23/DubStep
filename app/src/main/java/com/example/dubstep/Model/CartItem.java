@@ -1,40 +1,40 @@
 package com.example.dubstep.Model;
 
 public class CartItem {
-    String name;
-    String price;
-    int quantity;
+    String Name;
+    String Price;
+    String Quantity;
 
     public CartItem() {
     }
 
-    public CartItem(String name, String price, int quantity) {
-        this.name = name;
-        this.price = price;
-        this.quantity = quantity;
+    public CartItem(String name, String price, String quantity) {
+        Name = name;
+        Price = price;
+        Quantity = quantity;
     }
 
     public String getName() {
-        return name;
+        return Name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        Name = name;
     }
 
     public String getPrice() {
-        return price;
+        return Price;
     }
 
     public void setPrice(String price) {
-        this.price = price;
+        Price = price;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public String getQuantity() {
+        return Quantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setQuantity(String quantity) {
+        Quantity = quantity;
     }
 }
