@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.dubstep.ViewHolder.OtpActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -115,7 +116,7 @@ public class LoginActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
 
                                     progressDialog.dismiss();
-                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                    startActivity(new Intent(LoginActivity.this, OtpActivity.class)); //change later based on rider/customer
                                     finish();
 
                                 } else {
@@ -186,7 +187,7 @@ public class LoginActivity extends AppCompatActivity {
                                 startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
                             }
                             else {
-                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                startActivity(new Intent(LoginActivity.this, OtpActivity.class)); //change later based on rider/customer
                             }
 
                         } else {
