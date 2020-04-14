@@ -22,7 +22,7 @@
         android:id="@+id/cart_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <LinearLayout
@@ -54,6 +54,32 @@
             android:layout_weight="1"
             android:text="Place Order"
             app:backgroundTint="@color/colorAccent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/cart_total_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cart Total : xxxx"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:id="@+id/DdiscountTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="discount : xx% "
+            android:textAlignment="center"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

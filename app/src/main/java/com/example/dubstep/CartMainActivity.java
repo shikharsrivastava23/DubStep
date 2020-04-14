@@ -16,8 +16,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
 
 public class CartMainActivity extends AppCompatActivity {
 
@@ -27,6 +32,10 @@ public class CartMainActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private MaterialButton mplaceOrder;
     private TextView mPriceTotal;
+    private TextView mCartTotal;
+    private TextView mDiscount;
+
+    private DatabaseReference userref;
     private DatabaseReference mCartRef;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
@@ -37,11 +46,81 @@ public class CartMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cart_main);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        userref = FirebaseDatabase.getInstance().getReference("user").child(firebaseAuth.getCurrentUser().getUid().toString());
 
         mplaceOrder = findViewById(R.id.btn_place_order);
-        mPriceTotal = findViewById(R.id.total_price_text_view);
 
+
+        mCartRef = FirebaseDatabase.getInstance().getReference("Cart").child(firebaseAuth.getCurrentUser().getUid().toString());
+        setUpTotals();
         setUpRecycler();
+    }
+
+    private void setUpTotals() {
+
+        mPriceTotal = findViewById(R.id.total_price_text_view);
+        mCartTotal = findViewById(R.id.cart_total_textView);
+        mDiscount = findViewById(R.id.DdiscountTextView);
+
+        //int cartTotal = 0;
+        //double discount = 0;
+
+
+        mCartRef.child("Products").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int cartTotal = 0;
+                if(dataSnapshot.exists()){
+                    for(DataSnapshot snap: dataSnapshot.getChildren()){
+                        CartItem item = snap.getValue(CartItem.class);
+                        cartTotal += (Integer.parseInt(item.getPrice()) * Integer.parseInt(item.getQuantity()));
+
+                        final int finalCartTotal = cartTotal;
+                        userref.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                double discount = 0;
+                                user u = dataSnapshot.getValue(user.class);
+                                if(u.CustomerType.equals("Regular"))
+                                    discount = 25;
+
+                                mDiscount.setText("Regular Customer Discount : "+discount+"%");
+
+                                double TotalPrice = finalCartTotal *(100-discount)/100;
+
+                                mPriceTotal.setText("Total Price : "+TotalPrice);
+
+                                HashMap<String,Object> cartInfo = new HashMap<>();
+                                cartInfo.put("CartItemsTotal",finalCartTotal);
+                                cartInfo.put("Discount",discount);
+                                cartInfo.put("CartTotal",TotalPrice);
+
+                                mCartRef.child("Info").setValue(cartInfo);
+
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+                    }
+                }
+
+                mCartTotal.setText("CART TOTAL : "+cartTotal);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
     }
 
     @Override
@@ -57,7 +136,7 @@ public class CartMainActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        mCartRef = FirebaseDatabase.getInstance().getReference("Cart").child(firebaseAuth.getCurrentUser().getUid().toString());
+
 
         FirebaseRecyclerOptions<CartItem> options = new FirebaseRecyclerOptions.Builder<CartItem>()
                 .setQuery(mCartRef.child("Products"),CartItem.class)
@@ -97,9 +176,6 @@ public class CartMainActivity extends AppCompatActivity {
                         });
             }
         });
-
-
-
 
     }
 }
