@@ -80,6 +80,26 @@ public class CartMainActivity extends AppCompatActivity {
             }
         });
 
+        adapter.setOnValueChangeListener(new CartItemsAdapter.OnValueChangeListener() {
+            @Override
+            public void onQuantityChange(String PID, int quantity) {
+
+                String Qty = Integer.toString(quantity);
+                mCartRef.child("Products").child(PID).child("Quantity").setValue(Qty)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful())
+                                    Toast.makeText(CartMainActivity.this, "Quantity Updated", Toast.LENGTH_SHORT).show();
+                                else
+                                    Toast.makeText(CartMainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        });
+
+
+
 
     }
 }
