@@ -17,12 +17,14 @@ import com.google.android.material.button.MaterialButton;
 
 public class CartItemsAdapter extends FirebaseRecyclerAdapter<CartItem , CartItemsAdapter.CartItemsViewHolder> {
 
+    private OnItemClickListener listener;
+
     public CartItemsAdapter(@NonNull FirebaseRecyclerOptions<CartItem> options) {
         super(options);
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull CartItemsViewHolder holder, int position, @NonNull CartItem model) {
+    protected void onBindViewHolder(@NonNull CartItemsViewHolder holder, final int position, @NonNull final CartItem model) {
         holder.mFoodName.setText(model.getName());
         holder.mFoodPrice.setText("Base Price : "+model.getPrice());
         holder.mNumberButton.setNumber(model.getQuantity());
@@ -30,6 +32,13 @@ public class CartItemsAdapter extends FirebaseRecyclerAdapter<CartItem , CartIte
         int bp = Integer.parseInt(model.getPrice());
         int tp = q*bp;
         holder.mTotalPrice.setText("Price : "+tp);
+
+        holder.mRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemDelete(model.getProduct_ID(),position);
+            }
+        });
 
     }
 
@@ -59,7 +68,14 @@ public class CartItemsAdapter extends FirebaseRecyclerAdapter<CartItem , CartIte
             mRemove = itemView.findViewById(R.id.remove_btn);
             mNumberButton = itemView.findViewById(R.id.quantity_btns);
 
-
         }
+    }
+
+    public interface OnItemClickListener{
+        void onItemDelete(String PID,int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.listener = listener;
     }
 }

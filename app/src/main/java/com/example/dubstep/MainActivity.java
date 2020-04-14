@@ -236,6 +236,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 cartMap.put("Name",addedItem.getName().toString());
                 cartMap.put("Price",addedItem.getBase_price().toString());
                 cartMap.put("Quantity","1");
+                cartMap.put("Product_ID",ref);
 
                 cartref.child(firebaseAuth.getCurrentUser().getUid().toString()).child("Products")
                         .child(ref)

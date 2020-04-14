@@ -1,15 +1,19 @@
 package com.example.dubstep;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dubstep.Model.CartItem;
 import com.example.dubstep.ViewHolder.CartItemsAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -61,6 +65,20 @@ public class CartMainActivity extends AppCompatActivity {
 
         adapter = new CartItemsAdapter(options);
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new CartItemsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemDelete(String PID, int position) {
+                mCartRef.child("Products").child(PID).removeValue()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful())
+                                    Toast.makeText(CartMainActivity.this,"ITEM REMOVED", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        });
 
 
     }
