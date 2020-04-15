@@ -116,7 +116,7 @@ public class LoginActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
 
                                     progressDialog.dismiss();
-                                    startActivity(new Intent(LoginActivity.this, OtpActivity.class)); //change later based on rider/customer
+                                    startActivity(new Intent(LoginActivity.this, MainActivity.class)); //change later based on rider/customer
                                     finish();
 
                                 } else {
@@ -187,7 +187,7 @@ public class LoginActivity extends AppCompatActivity {
                                 startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
                             }
                             else {
-                                startActivity(new Intent(LoginActivity.this, OtpActivity.class)); //change later based on rider/customer
+                                startActivity(new Intent(LoginActivity.this, MainActivity.class)); //change later based on rider/customer
                             }
 
                         } else {
