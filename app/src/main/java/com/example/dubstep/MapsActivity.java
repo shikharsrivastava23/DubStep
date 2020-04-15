@@ -11,6 +11,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -18,11 +19,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import java.lang.Object;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
-{
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerDragListener {
 
     private GoogleMap mMap;
-
+    public LatLng pos;
     private FusedLocationProviderClient fusedLocationClient;
 
     @Override
@@ -51,23 +51,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
+        mMap.setOnMarkerDragListener(this);
         getLastKnownLocation();
     }
-    private void getLastKnownLocation()
-    {
+
+    private void getLastKnownLocation() {
         fusedLocationClient.getLastLocation().addOnCompleteListener((new OnCompleteListener<Location>() {
             @Override
             public void onComplete(@NonNull Task<Location> task) {
-                if(task.isSuccessful())
-                {
+                if (task.isSuccessful()) {
                     Location location = task.getResult();
-                    LatLng curr_location = new LatLng(location.getLatitude(), location.getLongitude());
-                    mMap.addMarker(new MarkerOptions().position(curr_location).title("Current Location"));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(curr_location));
+                    pos = new LatLng(location.getLatitude(), location.getLongitude());
+                    mMap.addMarker(new MarkerOptions().position(pos).draggable(true).title("Current Location"));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(pos));
                 }
             }
         }));
     }
 
+    @Override
+    public void onMarkerDragStart(Marker marker) {
+
+    }
+
+    @Override
+    public void onMarkerDrag(Marker marker) {
+
+    }
+
+    @Override
+    public void onMarkerDragEnd(Marker marker) {
+        pos = new LatLng(marker.getPosition().latitude, marker.getPosition().longitude);
+
+    }
 }
