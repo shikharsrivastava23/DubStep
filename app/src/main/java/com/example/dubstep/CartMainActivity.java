@@ -49,20 +49,40 @@ public class CartMainActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         userref = FirebaseDatabase.getInstance().getReference("user").child(firebaseAuth.getCurrentUser().getUid().toString());
+        mCartRef = FirebaseDatabase.getInstance().getReference("Cart").child(firebaseAuth.getCurrentUser().getUid().toString());
 
         mplaceOrder = findViewById(R.id.btn_place_order);
+
+        setUpTotals();
+        setUpRecycler();
+
+
+
         mplaceOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CartMainActivity.this,MapsActivity.class);
-                startActivity(intent);
+                final Intent intent = new Intent(CartMainActivity.this,TempActivity.class);
+                intent.putExtra("UID",firebaseAuth.getCurrentUser().getUid());
+
+                userref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        user u = dataSnapshot.getValue(user.class);
+                        intent.putExtra("PhoneNumber", u.PhoneNumber);
+                        startActivity(intent);
+                        //Toast.makeText(CartMainActivity.this,"Phone Number : "+u.PhoneNumber,Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
+
             }
         });
-
-
-        mCartRef = FirebaseDatabase.getInstance().getReference("Cart").child(firebaseAuth.getCurrentUser().getUid().toString());
-        setUpTotals();
-        setUpRecycler();
     }
 
     private void setUpTotals() {
