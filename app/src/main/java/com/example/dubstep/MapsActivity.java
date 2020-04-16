@@ -43,6 +43,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private DatabaseReference toReference;
     private String PhoneNumber;
     private String uid;
+    private Button SendButton;
 
 
     @Override
@@ -55,6 +56,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         uid = getIntent().getStringExtra("UID");
         fromReference = FirebaseDatabase.getInstance().getReference("Cart").child(uid);
         toReference = FirebaseDatabase.getInstance().getReference("Orders");
+        SendButton = findViewById(R.id.button_send);
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 

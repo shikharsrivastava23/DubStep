@@ -1,5 +1,10 @@
 package com.example.dubstep;
 
+import android.content.Intent;
+import android.location.Location;
+import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,26 +16,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dubstep.Model.OrderItem;
 import com.example.dubstep.ViewHolder.OrderItemsAdapter;
-
-import android.content.Intent;
-import android.location.Location;
-import android.os.Bundle;
-import android.view.MenuItem;
-
-
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 
 public class RiderMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
