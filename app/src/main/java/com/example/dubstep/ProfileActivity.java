@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -18,10 +19,12 @@ import android.widget.Toast;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -141,6 +144,19 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                             .child("Email").setValue(E_mail);
                                     mEmail.setText(E_mail);
+                                    // [START update_email]
+                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                                    user.updateEmail(E_mail)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        Toast.makeText(ProfileActivity.this,  "Email Changed",Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+                                    // [END update_email]
                                 }
                                 if (!Phone_Number.equals(PhoneNumber)){
                                     FirebaseDatabase.getInstance().getReference("user")
