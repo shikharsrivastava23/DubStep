@@ -147,7 +147,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 HashMap<String,Object> h = new HashMap<>();
-                h.put("PhoneNumber",phoneNumber);
+                h.put("Phone_Number",phoneNumber);
                 OrderNode.child(uid).child("Customer_Info").setValue(h);
             }
 
