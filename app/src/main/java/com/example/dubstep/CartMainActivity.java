@@ -61,7 +61,7 @@ public class CartMainActivity extends AppCompatActivity {
         mplaceOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Intent intent = new Intent(CartMainActivity.this,TempActivity.class);
+                final Intent intent = new Intent(CartMainActivity.this,MapsActivity.class);
                 intent.putExtra("UID",firebaseAuth.getCurrentUser().getUid());
 
                 userref.addListenerForSingleValueEvent(new ValueEventListener() {
