@@ -37,7 +37,6 @@ public class OrderItemsAdapter extends FirebaseRecyclerAdapter<OrderItem, OrderI
                 listener.onItemClick(model.getLatitude(),model.getLongitude());
             }
         });
-
     }
 
     @NonNull

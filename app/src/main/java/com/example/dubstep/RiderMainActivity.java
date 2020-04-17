@@ -134,6 +134,18 @@ public class RiderMainActivity extends AppCompatActivity implements NavigationVi
                 Log.d("Rider = ", Double.toString(pos.latitude)+","+Double.toString(pos.longitude));
                 Log.d("Distance = ", Double.toString(distance));
 
+                Intent intent = new Intent(RiderMainActivity.this,RiderMapsActivity.class);
+
+                intent.putExtra("RiderLat",Double.toString(pos.latitude));
+                intent.putExtra("RiderLong",Double.toString(pos.longitude));
+
+                intent.putExtra("OrderLat",Double.toString(latitude));
+                intent.putExtra("OrderLong",Double.toString(longitude));
+
+                intent.putExtra("Distance",Double.toString(distance));
+
+                startActivity(intent);
+
             }
         });
 
