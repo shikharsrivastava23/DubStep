@@ -3,19 +3,19 @@ package com.example.dubstep.Model;
 public class OrderItem
 {
     String Phone_Number;
-    double Latitude, Longitude;
-    String cartTotal;
-
+    double Latitude;
+    double Longitude;
+    String CartTotalAmount;
     public OrderItem()
     {
 
     }
-    public OrderItem(String Phone_Number, double Latitude, double Longitude, String cartTotal)
+    public OrderItem(String phone_number, double latitude, double longitude, String cartTotal)
     {
-        this.Phone_Number = Phone_Number;
-        this.Latitude = Latitude;
-        this.Longitude = Longitude;
-        this.cartTotal = cartTotal;
+        Phone_Number = phone_number;
+        Latitude = latitude;
+        Longitude = longitude;
+        CartTotalAmount = cartTotal;
     }
 
     public String getPhone_Number() {
@@ -42,12 +42,12 @@ public class OrderItem
         Longitude = longitude;
     }
 
-    public String getCartTotal() {
-        return cartTotal;
+    public String getCartTotalAmount() {
+        return CartTotalAmount;
     }
 
     public void setCartTotal(String cartTotal) {
-        this.cartTotal = cartTotal;
+        this.CartTotalAmount = cartTotal;
     }
 
 }

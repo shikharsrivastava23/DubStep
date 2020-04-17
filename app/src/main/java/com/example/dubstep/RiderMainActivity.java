@@ -35,7 +35,6 @@ public class RiderMainActivity extends AppCompatActivity implements NavigationVi
 
     private OrderItemsAdapter adapter;
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
     private DatabaseReference orderref;
@@ -61,8 +60,7 @@ public class RiderMainActivity extends AppCompatActivity implements NavigationVi
         getLastKnownLocation();
 
         firebaseAuth = FirebaseAuth.getInstance();
-        orderref = FirebaseDatabase.getInstance().getReference("Orders").child(firebaseAuth.getCurrentUser().getUid().toString());
-
+        orderref = FirebaseDatabase.getInstance().getReference("Orders");
         setUpRecyclerView();
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(
@@ -99,7 +97,7 @@ public class RiderMainActivity extends AppCompatActivity implements NavigationVi
     }
 
     private void setUpRecyclerView() {
-        recyclerView = findViewById(R.id.cart_recycler_view);
+        recyclerView = findViewById(R.id.rider_recycler_view);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -112,7 +110,7 @@ public class RiderMainActivity extends AppCompatActivity implements NavigationVi
         adapter = new OrderItemsAdapter(options);
         recyclerView.setAdapter(adapter);
 
-        adapter.setOnItemClickListener(new OrderItemsAdapter.OnItemClickListener() {
+        /* adapter.setOnItemClickListener(new OrderItemsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(double latitude, double longitude)
             {
@@ -130,7 +128,7 @@ public class RiderMainActivity extends AppCompatActivity implements NavigationVi
                 distance = Math.sqrt(dist);
 
             }
-        });
+        }); */
 
     }
 

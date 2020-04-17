@@ -18,9 +18,6 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 public class OrderItemsAdapter extends FirebaseRecyclerAdapter<OrderItem, OrderItemsAdapter.OrderHolder> {
 
     private OnItemClickListener listener;
-    double latitude, longitude;
-
-
 
     public OrderItemsAdapter(@NonNull FirebaseRecyclerOptions<OrderItem> options) {
         super(options);
@@ -30,7 +27,7 @@ public class OrderItemsAdapter extends FirebaseRecyclerAdapter<OrderItem, OrderI
     protected void onBindViewHolder(@NonNull OrderHolder holder, int position, @NonNull final OrderItem model)
     {
         holder.mobile_no.setText(model.getPhone_Number());
-        holder.cart_size.setText(model.getCartTotal());
+        holder.cart_size.setText(model.getCartTotalAmount());
         holder.latitude.setText(Double.toString(model.getLatitude()));
         holder.longitude.setText(Double.toString(model.getLongitude()));
 
@@ -49,7 +46,8 @@ public class OrderItemsAdapter extends FirebaseRecyclerAdapter<OrderItem, OrderI
     {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.order_item,
                 parent, false);
-        return new OrderHolder(v);
+        OrderHolder holder = new OrderHolder(v);
+        return holder;
 
     }
 
