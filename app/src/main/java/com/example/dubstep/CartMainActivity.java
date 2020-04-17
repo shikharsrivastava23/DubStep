@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dubstep.Model.CartInfo;
 import com.example.dubstep.Model.CartItem;
 import com.example.dubstep.ViewHolder.CartItemsAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -69,7 +70,25 @@ public class CartMainActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         user u = dataSnapshot.getValue(user.class);
                         intent.putExtra("PhoneNumber", u.PhoneNumber);
-                        startActivity(intent);
+
+                        mCartRef.child("Info").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                CartInfo cartInfo = dataSnapshot.getValue(CartInfo.class);
+                                intent.putExtra("cartTotal", Double.toString(cartInfo.getCartTotal()) );
+
+                                startActivity(intent);
+
+                                //Toast.makeText(CartMainActivity.this,"Cart Total : "+cartInfo.getCartTotal(),Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+                        //startActivity(intent);
                         //Toast.makeText(CartMainActivity.this,"Phone Number : "+u.PhoneNumber,Toast.LENGTH_SHORT).show();
                     }
 
