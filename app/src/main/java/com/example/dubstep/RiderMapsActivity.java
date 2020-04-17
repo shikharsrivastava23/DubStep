@@ -2,6 +2,8 @@ package com.example.dubstep;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -56,8 +58,13 @@ public class RiderMapsActivity extends FragmentActivity implements OnMapReadyCal
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng order = new LatLng(Order_Lat, Order_Long);
+        LatLng rider = new LatLng(Rider_Lat, Rider_Long);
+        mMap.addMarker(new MarkerOptions().position(order).title("Order Location"));
+        mMap.addMarker(new MarkerOptions().position(rider).title("Rider Location"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(order));
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                Uri.parse("http://maps.google.com/maps?saddr="+Double.toString(Rider_Lat)+","+Double.toString(Rider_Long)+"&daddr="+Double.toString(Order_Lat)+","+Double.toString(Order_Long)));
+        startActivity(intent);
     }
 }
