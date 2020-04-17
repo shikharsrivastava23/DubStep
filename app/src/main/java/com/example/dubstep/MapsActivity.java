@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -43,6 +44,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private DatabaseReference toReference;
     private String PhoneNumber;
     private String uid;
+    private String cartTotalAmt;
     private Button SendButton;
 
 
@@ -54,6 +56,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         PhoneNumber = getIntent().getStringExtra("PhoneNumber");
         uid = getIntent().getStringExtra("UID");
+        cartTotalAmt = getIntent().getStringExtra("cartTotal");
+
+        //Toast.makeText(MapsActivity.this,"Cart Total"+cartTotalAmt,Toast.LENGTH_SHORT).show();
+
         fromReference = FirebaseDatabase.getInstance().getReference("Cart").child(uid);
         toReference = FirebaseDatabase.getInstance().getReference("Orders");
         SendButton = findViewById(R.id.button_send);
@@ -81,7 +87,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         mMap.setOnMarkerDragListener(this);
         getLastKnownLocation();
         Button button = (Button) findViewById(R.id.button_send);
@@ -90,9 +95,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             {
                 // Do something in response to button click
 
-                copyCartItems(fromReference,toReference);
-                addUserInfo(PhoneNumber,toReference);
-                addUserLocation(pos.latitude,pos.longitude,toReference);
+                createOrder(pos.latitude,pos.longitude,toReference);
+
+                //addUserLocation(pos.latitude,pos.longitude,toReference);
             }
         });
     }
@@ -126,61 +131,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         pos = new LatLng(marker.getPosition().latitude, marker.getPosition().longitude);
     }
 
-    private void addUserLocation(final double lat, final double longt, final DatabaseReference OrderNode) {
-        OrderNode.addListenerForSingleValueEvent(new ValueEventListener() {
+    private void createOrder(final double lat, final double longt, final DatabaseReference OrderNode){
+        HashMap<String,Object> order = new HashMap<>();
+
+        order.put("CartTotalAmount",cartTotalAmt);
+        order.put("Customer_UID",uid);
+        order.put("Phone_Number",PhoneNumber);
+        order.put("Latitude",lat);
+        order.put("Longitude",longt);
+
+        OrderNode.child(uid).setValue(order).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                HashMap<String,Object> loc = new HashMap<>();
-                loc.put("Latitude",lat);
-                loc.put("Longitude",longt);
-
-                OrderNode.child(uid).child("Customer_Info").child("Location").setValue(loc);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void addUserInfo(final String phoneNumber, final DatabaseReference OrderNode) {
-        OrderNode.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                HashMap<String,Object> h = new HashMap<>();
-                h.put("Phone_Number",phoneNumber);
-                OrderNode.child(uid).child("Customer_Info").setValue(h);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void copyCartItems(DatabaseReference from, final DatabaseReference to) {
-
-        from.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                to.child(uid).setValue(dataSnapshot.getValue()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful())
-                            Toast.makeText(MapsActivity.this,"COPIED",Toast.LENGTH_SHORT).show();
-                        else
-                            Toast.makeText(MapsActivity.this,"ERROR",Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful())
+                    Toast.makeText(MapsActivity.this,"Order Placed Successfully",Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(MapsActivity.this,"Error.",Toast.LENGTH_SHORT).show();
 
             }
         });
 
     }
+
+
+
+
+
 }
