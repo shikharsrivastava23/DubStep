@@ -3,6 +3,8 @@ package com.example.dubstep;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Debug;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -91,6 +93,7 @@ public class RiderMainActivity extends AppCompatActivity implements NavigationVi
                 if (task.isSuccessful()) {
                     Location location = task.getResult();
                     pos = new LatLng(location.getLatitude(), location.getLongitude());
+                    Log.d("Latitude =",Double.toString(pos.latitude));
                 }
             }
         }));
@@ -101,6 +104,7 @@ public class RiderMainActivity extends AppCompatActivity implements NavigationVi
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+        getLastKnownLocation();
 
 
 
@@ -110,7 +114,7 @@ public class RiderMainActivity extends AppCompatActivity implements NavigationVi
         adapter = new OrderItemsAdapter(options);
         recyclerView.setAdapter(adapter);
 
-        /* adapter.setOnItemClickListener(new OrderItemsAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListener(new OrderItemsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(double latitude, double longitude)
             {
@@ -124,11 +128,14 @@ public class RiderMainActivity extends AppCompatActivity implements NavigationVi
                 double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
                 double dist = R * c;
 
-                dist = Math.pow(distance, 2);
+                dist = Math.pow(dist, 2);
                 distance = Math.sqrt(dist);
+                Log.d("Coordinates = ",Double.toString(latitude)+","+Double.toString(longitude));
+                Log.d("Rider = ", Double.toString(pos.latitude)+","+Double.toString(pos.longitude));
+                Log.d("Distance = ", Double.toString(distance));
 
             }
-        }); */
+        });
 
     }
 
