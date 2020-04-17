@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -111,6 +112,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     pos = new LatLng(location.getLatitude(), location.getLongitude());
                     mMap.addMarker(new MarkerOptions().position(pos).draggable(true).title("Current Location"));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(pos));
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
                 }
             }
         }));
@@ -132,20 +134,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void createOrder(final double lat, final double longt, final DatabaseReference OrderNode){
-        HashMap<String,Object> order = new HashMap<>();
+        final HashMap<String,Object> order = new HashMap<>();
 
         order.put("CartTotalAmount",cartTotalAmt);
         order.put("Customer_UID",uid);
         order.put("Phone_Number",PhoneNumber);
         order.put("Latitude",lat);
         order.put("Longitude",longt);
+        order.put("Status","0");
 
         OrderNode.child(uid).setValue(order).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful())
-                    Toast.makeText(MapsActivity.this,"Order Placed Successfully",Toast.LENGTH_SHORT).show();
-                else
+                if(task.isSuccessful()) {
+                    //Toast.makeText(MapsActivity.this,"Amount:"+order.get("CartTotalAmount"),Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MapsActivity.this,Order_placed.class);
+                    intent.putExtra("TotalAmount",order.get("CartTotalAmount").toString());
+                    intent.putExtra("UID",uid);
+                    startActivity(intent);
+                }else
                     Toast.makeText(MapsActivity.this,"Error.",Toast.LENGTH_SHORT).show();
 
             }

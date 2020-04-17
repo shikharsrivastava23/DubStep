@@ -6,16 +6,19 @@ public class OrderItem
     double Latitude;
     double Longitude;
     String CartTotalAmount;
+    String Status;
+
     public OrderItem()
     {
 
     }
-    public OrderItem(String phone_number, double latitude, double longitude, String cartTotal)
+    public OrderItem(String phone_number, double latitude, double longitude, String cartTotal,String status)
     {
         Phone_Number = phone_number;
         Latitude = latitude;
         Longitude = longitude;
         CartTotalAmount = cartTotal;
+        Status = status;
     }
 
     public String getPhone_Number() {
@@ -50,4 +53,11 @@ public class OrderItem
         this.CartTotalAmount = cartTotal;
     }
 
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
+    }
 }
