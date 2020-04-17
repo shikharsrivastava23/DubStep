@@ -13,7 +13,7 @@ public class Splash_Screen extends AppCompatActivity {
     TextView dubstep, dabba;
     ImageView logo;
 
-    private static int SPLASH_SCREEN = 4000; //4 Ssecs
+    private static int SPLASH_SCREEN = 2500; //2.5 secs
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
