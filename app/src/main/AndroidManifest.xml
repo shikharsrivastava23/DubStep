@@ -15,14 +15,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ViewHolder.ThankYouActivity"></activity>
         <activity android:name=".Order_placed" />
-        <!--
-             The API key for Google Maps-based APIs is defined as a string resource.
-             (See the file "res/values/google_maps_api.xml").
-             Note that the API key is linked to the encryption key used to sign the APK.
-             You need a different API key for each encryption key, including the release key that is used to
-             sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/.
-        -->
+
         <activity
             android:name=".RiderMapsActivity"
             android:label="@string/title_activity_rider_maps" />
@@ -34,13 +27,15 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".RiderMainActivity"></activity>
-        <activity android:name=".Splash_Screen">
+        <activity android:name=".RiderMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".Splash_Screen">
+
         </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
