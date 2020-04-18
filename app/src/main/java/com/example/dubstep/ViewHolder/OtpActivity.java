@@ -155,7 +155,7 @@ public class OtpActivity extends AppCompatActivity {
 
                             Toast.makeText(OtpActivity.this, "Verified", Toast.LENGTH_SHORT).show();
 
-                            Intent intent = new Intent(getApplicationContext(), MapsActivity.class); //change later
+                            Intent intent = new Intent(getApplicationContext(), ThankYouActivity.class); //change later
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
 

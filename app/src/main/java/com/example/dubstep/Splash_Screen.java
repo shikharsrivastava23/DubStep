@@ -8,6 +8,8 @@ import android.os.Handler;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.dubstep.ViewHolder.ThankYouActivity;
+
 public class Splash_Screen extends AppCompatActivity {
 
     TextView dubstep, dabba;
