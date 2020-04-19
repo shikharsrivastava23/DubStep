@@ -19,7 +19,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="350px"
+        android:layout_height="450px"
         android:layout_gravity="bottom"
         android:backgroundTint="#FF6E40"
         android:padding="15dp"
@@ -35,23 +35,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
+                    android:id="@+id/PhoneNumber_TextView"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="Phone Number"
                     android:textColor="@color/white"
                     android:textSize="20dp"
                     android:layout_margin="10dp"
-                    android:id="@+id/PhoneNumberTextView"/>
+                    />
 
                 <TextView
+                    android:id="@+id/Amount_TextView"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="Amount = xxx"
                     android:textColor="@color/white"
                     android:textSize="20dp"
                     android:layout_margin="10dp"
-                    android:id="@+id/AmountTextView"/>
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -61,6 +64,7 @@
                 android:layout_gravity="end">
 
                 <TextView
+                    android:id="@+id/Distance_TextView"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="Distance = "
@@ -69,17 +73,37 @@
                     android:textSize="20dp"
                     android:layout_margin="10dp"
                     android:layout_gravity="right"
-                    android:id="@+id/DistanceTextView"/>
+                    />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/NavigationButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="Start Navigation"
+                    android:layout_gravity="right"
+                    android:visibility="gone"/>
 
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/ActionButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right|bottom"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="10dp"
                     android:text="Accept Order"
-                    android:id="@+id/RiderAcceptButton"/>
+                    />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/ActionButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|bottom"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:text="Mark as Delivered"
+                    android:visibility="gone"/>
 
             </LinearLayout>
 

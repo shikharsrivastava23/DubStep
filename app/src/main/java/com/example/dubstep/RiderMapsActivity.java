@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +18,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RiderMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -29,9 +32,16 @@ public class RiderMapsActivity extends FragmentActivity implements OnMapReadyCal
     private String Customer_phone;
     private String Customer_UID;
     private String status;
-    MaterialButton RiderAcceptButton;
+    private String Amount;
+
+    DatabaseReference OrderNodeRef;
+
     TextView PhoneNumberTextView, AmountTextView, DistanceTextView;
 
+
+    private MaterialButton maccept;
+    private MaterialButton mDelivered;
+    private MaterialButton mStartNav;
 
 
     @Override
@@ -51,12 +61,45 @@ public class RiderMapsActivity extends FragmentActivity implements OnMapReadyCal
         Customer_phone = getIntent().getStringExtra("Phone_Number");
         Customer_UID = getIntent().getStringExtra("Customer_UID");
         status = getIntent().getStringExtra("Status");
-        PhoneNumberTextView = findViewById(R.id.PhoneNumberTextView);
-        AmountTextView = findViewById(R.id.AmountTextView);
-        DistanceTextView = findViewById(R.id.DistanceTextView);
-        RiderAcceptButton = findViewById(R.id.RiderAcceptButton);
+        Amount = getIntent().getStringExtra("Amount");
+
+        PhoneNumberTextView = findViewById(R.id.PhoneNumber_TextView);
+        AmountTextView = findViewById(R.id.Amount_TextView);
+        DistanceTextView = findViewById(R.id.Distance_TextView);
+
+        PhoneNumberTextView.setText(Customer_phone);
+        AmountTextView.setText("Amount = "+Amount);
+        DistanceTextView.setText("Distance : "+String.format("%.2f",Distance)+" Km");
 
         //Toast.makeText(RiderMapsActivity.this,""+Distance,Toast.LENGTH_SHORT).show();
+
+        maccept = findViewById(R.id.ActionButton);
+        mDelivered = findViewById(R.id.ActionButton2);
+        mStartNav = findViewById(R.id.NavigationButton);
+
+        OrderNodeRef = FirebaseDatabase.getInstance().getReference().child("Orders");
+
+        maccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                maccept.setVisibility(View.GONE);
+                mDelivered.setVisibility(View.VISIBLE);
+                mStartNav.setVisibility(View.VISIBLE);
+
+                OrderNodeRef.child(Customer_UID).child("Status").setValue("1");
+
+
+
+            }
+        });
+
+        mDelivered.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(RiderMapsActivity.this,"ORDER DELIVERED!",Toast.LENGTH_SHORT).show();
+                OrderNodeRef.child(Customer_UID).child("Status").setValue("2");
+            }
+        });
 
     }
 
@@ -81,15 +124,16 @@ public class RiderMapsActivity extends FragmentActivity implements OnMapReadyCal
         mMap.addMarker(new MarkerOptions().position(rider).title("Rider Location"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(order));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
-        //Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-         //      Uri.parse("http://maps.google.com/maps?saddr="+Double.toString(Rider_Lat)+","+Double.toString(Rider_Long)+"&daddr="+Double.toString(Order_Lat)+","+Double.toString(Order_Long)));
-        //startActivity(intent);
 
-        RiderAcceptButton.setOnClickListener(new View.OnClickListener() {
+        mStartNav.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
+            public void onClick(View v) {
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                        Uri.parse("http://maps.google.com/maps?saddr="+Double.toString(Rider_Lat)+","+Double.toString(Rider_Long)+"&daddr="+Double.toString(Order_Lat)+","+Double.toString(Order_Long)));
+                startActivity(intent);
             }
         });
+
+
     }
 }
