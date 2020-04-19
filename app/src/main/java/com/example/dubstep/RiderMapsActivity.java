@@ -1,10 +1,16 @@
 package com.example.dubstep;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.view.View;
 import android.widget.TextView;
@@ -90,9 +96,19 @@ public class RiderMapsActivity extends FragmentActivity implements OnMapReadyCal
 
                 OrderNodeRef.child(Customer_UID).child("Distance").setValue(String.format("%.2f",Distance));
 
+                int permissionCheck = ContextCompat.checkSelfPermission(RiderMapsActivity.this, Manifest.permission.SEND_SMS);
+
+                if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+                   MyMessage();
+                }
+                else {
+                    ActivityCompat.requestPermissions(RiderMapsActivity.this, new String[] {Manifest.permission.SEND_SMS},0);
+                }
 
 
             }
+
+
         });
 
         mDelivered.setOnClickListener(new View.OnClickListener() {
@@ -100,11 +116,37 @@ public class RiderMapsActivity extends FragmentActivity implements OnMapReadyCal
             public void onClick(View v) {
                 Toast.makeText(RiderMapsActivity.this,"ORDER DELIVERED!",Toast.LENGTH_SHORT).show();
                 OrderNodeRef.child(Customer_UID).child("Status").setValue("2");
+
+
             }
         });
 
     }
 
+    private void MyMessage() {
+        String Message = "Dear customer, I will be delivering your order of amount " + Amount;
+
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(Customer_phone,null,Message,null,null);
+        Toast.makeText(RiderMapsActivity.this,"Message sent to customer",Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+
+            case 0:
+                if (grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    MyMessage();
+                }
+                else {
+                    Toast.makeText(RiderMapsActivity.this,"You dont have the required permissions",Toast.LENGTH_SHORT).show();
+                }
+        }
+    }
 
     /**
      * Manipulates the map once available.
@@ -139,3 +181,5 @@ public class RiderMapsActivity extends FragmentActivity implements OnMapReadyCal
 
     }
 }
+
+
