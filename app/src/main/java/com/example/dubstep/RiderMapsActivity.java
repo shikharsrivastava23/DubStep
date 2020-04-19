@@ -26,6 +26,9 @@ public class RiderMapsActivity extends FragmentActivity implements OnMapReadyCal
     private double Order_Lat;
     private double Order_Long;
     private double Distance;
+    private String Customer_phone;
+    private String Customer_UID;
+    private String status;
     MaterialButton RiderAcceptButton;
     TextView PhoneNumberTextView, AmountTextView, DistanceTextView;
 
@@ -45,6 +48,9 @@ public class RiderMapsActivity extends FragmentActivity implements OnMapReadyCal
         Order_Lat = Double.parseDouble(getIntent().getStringExtra("OrderLat"));
         Order_Long = Double.parseDouble(getIntent().getStringExtra("OrderLong"));
         Distance = Double.parseDouble(getIntent().getStringExtra("Distance"));
+        Customer_phone = getIntent().getStringExtra("Phone_Number");
+        Customer_UID = getIntent().getStringExtra("Customer_UID");
+        status = getIntent().getStringExtra("Status");
         PhoneNumberTextView = findViewById(R.id.PhoneNumberTextView);
         AmountTextView = findViewById(R.id.AmountTextView);
         DistanceTextView = findViewById(R.id.DistanceTextView);

@@ -34,7 +34,7 @@ public class OrderItemsAdapter extends FirebaseRecyclerAdapter<OrderItem, OrderI
         holder.accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClick(model.getLatitude(),model.getLongitude());
+                listener.onItemClick(model.getLatitude(),model.getLongitude(), model.getPhone_Number(), model.getCustomer_UID(), model.getStatus());
             }
         });
     }
@@ -69,7 +69,7 @@ public class OrderItemsAdapter extends FirebaseRecyclerAdapter<OrderItem, OrderI
     }
 
     public interface OnItemClickListener{
-        void onItemClick(double latitude, double longitude);
+        void onItemClick(double latitude, double longitude, String phone, String cust_uid, String status);
     }
     public void setOnItemClickListener(OnItemClickListener listener)
     {

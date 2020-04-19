@@ -116,7 +116,7 @@ public class RiderMainActivity extends AppCompatActivity implements NavigationVi
 
         adapter.setOnItemClickListener(new OrderItemsAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(double latitude, double longitude)
+            public void onItemClick(double latitude, double longitude, String phone, String cust_uid, String status)
             {
                 final int R = 6371; // Radius of the earth
 
@@ -143,6 +143,10 @@ public class RiderMainActivity extends AppCompatActivity implements NavigationVi
                 intent.putExtra("OrderLong",Double.toString(longitude));
 
                 intent.putExtra("Distance",Double.toString(distance));
+
+                intent.putExtra("Phone_Number", phone);
+                intent.putExtra("Customer_UID", cust_uid);
+                intent.putExtra("Status", status);
 
                 startActivity(intent);
 
