@@ -88,6 +88,8 @@ public class RiderMapsActivity extends FragmentActivity implements OnMapReadyCal
 
                 OrderNodeRef.child(Customer_UID).child("Status").setValue("1");
 
+                OrderNodeRef.child(Customer_UID).child("Distance").setValue(String.format("%.2f",Distance));
+
 
 
             }

@@ -142,6 +142,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         order.put("Latitude",lat);
         order.put("Longitude",longt);
         order.put("Status","0");
+        order.put("Distance","NA");
 
         OrderNode.child(uid).setValue(order).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

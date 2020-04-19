@@ -45,10 +45,10 @@
     <TextView
         android:id="@+id/Status_TextView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="27dp"
+        android:layout_marginTop="90dp"
         android:text="AWAITING CONIRMATION"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
@@ -57,11 +57,34 @@
         android:id="@+id/amount_payable"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginBottom="120dp"
-        android:text="Amount Payable:"
+        android:layout_marginTop="16dp"
+        android:text="Toal After Discount:"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Status_TextView" />
+
+    <TextView
+        android:id="@+id/distance_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Delivery Distance:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/amount_payable"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/Total_Amount_Payable_TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="Total Payable Amount: xxxx"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/distance_textView"
+        android:textSize="20sp"
+        android:visibility="gone"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
