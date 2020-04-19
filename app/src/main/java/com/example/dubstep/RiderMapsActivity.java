@@ -5,6 +5,8 @@ import androidx.fragment.app.FragmentActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -14,6 +16,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.button.MaterialButton;
 
 public class RiderMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -23,6 +26,9 @@ public class RiderMapsActivity extends FragmentActivity implements OnMapReadyCal
     private double Order_Lat;
     private double Order_Long;
     private double Distance;
+    MaterialButton RiderAcceptButton;
+    TextView PhoneNumberTextView, AmountTextView, DistanceTextView;
+
 
 
     @Override
@@ -39,6 +45,10 @@ public class RiderMapsActivity extends FragmentActivity implements OnMapReadyCal
         Order_Lat = Double.parseDouble(getIntent().getStringExtra("OrderLat"));
         Order_Long = Double.parseDouble(getIntent().getStringExtra("OrderLong"));
         Distance = Double.parseDouble(getIntent().getStringExtra("Distance"));
+        PhoneNumberTextView = findViewById(R.id.PhoneNumberTextView);
+        AmountTextView = findViewById(R.id.AmountTextView);
+        DistanceTextView = findViewById(R.id.DistanceTextView);
+        RiderAcceptButton = findViewById(R.id.RiderAcceptButton);
 
         //Toast.makeText(RiderMapsActivity.this,""+Distance,Toast.LENGTH_SHORT).show();
 
@@ -68,5 +78,12 @@ public class RiderMapsActivity extends FragmentActivity implements OnMapReadyCal
         //Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
          //      Uri.parse("http://maps.google.com/maps?saddr="+Double.toString(Rider_Lat)+","+Double.toString(Rider_Long)+"&daddr="+Double.toString(Order_Lat)+","+Double.toString(Order_Long)));
         //startActivity(intent);
+
+        RiderAcceptButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 }
