@@ -64,8 +64,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         fromReference = FirebaseDatabase.getInstance().getReference("Cart").child(uid);
         toReference = FirebaseDatabase.getInstance().getReference("Orders");
         SendButton = findViewById(R.id.button_send);
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED)
+        {
+            // No explanation needed; request the permission
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+            getLastKnownLocation();
 
+        }
+        else {
+            // Permission has already been granted
+        }
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        getLastKnownLocation();
 
         // Get the SupportMapFragment and request notification
         // when the map is ready to be used.
