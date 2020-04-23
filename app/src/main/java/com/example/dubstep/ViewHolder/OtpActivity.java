@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.dubstep.MapsActivity;
+import com.example.dubstep.Order_placed;
 import com.example.dubstep.ProfileActivity;
 import com.example.dubstep.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -42,6 +43,8 @@ public class OtpActivity extends AppCompatActivity {
     public String phoneNo;
     String verificationCodeBySystem;
 
+    String amountPayable;
+    String UID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,9 @@ public class OtpActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progress_bar);
 
         progressBar.setVisibility(View.GONE);
+
+        amountPayable = getIntent().getStringExtra("TotalAmount");
+        UID = getIntent().getStringExtra("UID");
 
         FirebaseDatabase.getInstance().getReference("user")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
@@ -155,7 +161,9 @@ public class OtpActivity extends AppCompatActivity {
 
                             Toast.makeText(OtpActivity.this, "Verified", Toast.LENGTH_SHORT).show();
 
-                            Intent intent = new Intent(getApplicationContext(), ThankYouActivity.class); //change later
+                            Intent intent = new Intent(getApplicationContext(), Order_placed.class); //change later
+                            intent.putExtra("TotalAmount",amountPayable);
+                            intent.putExtra("UID",UID);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
 

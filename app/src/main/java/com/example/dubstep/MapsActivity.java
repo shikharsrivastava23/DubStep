@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.dubstep.ViewHolder.OtpActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -162,7 +163,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()) {
                     //Toast.makeText(MapsActivity.this,"Amount:"+order.get("CartTotalAmount"),Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MapsActivity.this,Order_placed.class);
+                    Intent intent = new Intent(MapsActivity.this, OtpActivity.class);
                     intent.putExtra("TotalAmount",order.get("CartTotalAmount").toString());
                     intent.putExtra("UID",uid);
                     startActivity(intent);

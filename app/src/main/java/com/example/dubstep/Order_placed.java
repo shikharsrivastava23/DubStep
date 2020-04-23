@@ -21,8 +21,10 @@ public class Order_placed extends AppCompatActivity {
     DatabaseReference orderref;
     FirebaseAuth firebaseAuth;
     final double deliveryChargePerKM = 5;
+
     String amountPayable;
     String UID;
+
     TextView amt_pay;
     TextView status;
     TextView mDistance;

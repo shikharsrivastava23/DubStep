@@ -130,7 +130,7 @@ public class CartMainActivity extends AppCompatActivity {
                                 double discount = 0;
                                 user u = dataSnapshot.getValue(user.class);
                                 if(u.CustomerType.equals("Regular"))
-                                    discount = 25;
+                                    discount = 20;
 
                                 mDiscount.setText("Regular Customer Discount : "+discount+"%");
 
