@@ -3,12 +3,14 @@ package com.example.dubstep;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dubstep.Model.OrderItem;
+import com.example.dubstep.ViewHolder.ThankYouActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -73,6 +75,8 @@ public class Order_placed extends AppCompatActivity {
 
 
                 }else if(s.equals("2")){
+                    Intent intent = new Intent(Order_placed.this, ThankYouActivity.class);
+                    startActivity(intent);
                     status.setText("ORDER HAS BEEN DELIVERED.");
                 }
                 //Toast.makeText(Order_placed.this,"Status "+order.getStatus(),Toast.LENGTH_SHORT).show();
