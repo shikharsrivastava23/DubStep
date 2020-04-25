@@ -92,6 +92,7 @@ public class RiderMapsActivity extends FragmentActivity implements OnMapReadyCal
                 mDelivered.setVisibility(View.VISIBLE);
                 mStartNav.setVisibility(View.VISIBLE);
 
+
                 OrderNodeRef.child(Customer_UID).child("Status").setValue("1");
 
                 OrderNodeRef.child(Customer_UID).child("Distance").setValue(String.format("%.2f",Distance));

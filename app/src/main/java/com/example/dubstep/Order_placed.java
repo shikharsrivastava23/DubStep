@@ -54,7 +54,9 @@ public class Order_placed extends AppCompatActivity {
         orderref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 OrderItem order = dataSnapshot.getValue(OrderItem.class);
+
                 String s = order.getStatus();
 
                 if(s.equals("0")){

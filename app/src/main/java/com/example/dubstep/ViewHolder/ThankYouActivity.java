@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -25,7 +26,7 @@ public class ThankYouActivity extends AppCompatActivity {
         ContinueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ThankYouActivity.this, MainActivity.class));
+                startActivity(new Intent(ThankYouActivity.this, LoginActivity.class));
             }
         });
     }

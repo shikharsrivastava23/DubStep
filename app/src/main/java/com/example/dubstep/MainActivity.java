@@ -84,9 +84,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public  void  onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if(user==null){
-                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
+//                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+//                    startActivity(intent);
+//                    finish();
                 }
             }
         };
@@ -191,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onStart() {
         super.onStart();
-        firebaseAuth.addAuthStateListener(mAuthStateListener);
+        //firebaseAuth.addAuthStateListener(mAuthStateListener);
 
         FirebaseRecyclerOptions<FoodItem> options = new FirebaseRecyclerOptions.Builder<FoodItem>().setQuery(foodref,FoodItem.class).build();
         final FirebaseRecyclerAdapter<FoodItem, FoodItemViewHolder> adapter =
@@ -261,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onResume() {
         super.onResume();
-        firebaseAuth.addAuthStateListener(mAuthStateListener);
+//        firebaseAuth.addAuthStateListener(mAuthStateListener);
     }
 
 }
