@@ -56,6 +56,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Retrieve the content view that renders the map.
         setContentView(R.layout.activity_maps);
 
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
         PhoneNumber = getIntent().getStringExtra("PhoneNumber");
         uid = getIntent().getStringExtra("UID");
         cartTotalAmt = getIntent().getStringExtra("cartTotal");
@@ -72,14 +74,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // No explanation needed; request the permission
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
-            getLastKnownLocation();
+
 
         }
         else {
             // Permission has already been granted
+
         }
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        getLastKnownLocation();
 
         // Get the SupportMapFragment and request notification
         // when the map is ready to be used.
