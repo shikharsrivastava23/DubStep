@@ -78,6 +78,7 @@ public class Order_placed extends AppCompatActivity {
 
                 }else if(s.equals("2")){
                     Intent intent = new Intent(Order_placed.this, ThankYouActivity.class);
+                    intent.putExtra("UID",UID);
                     startActivity(intent);
                     status.setText("ORDER HAS BEEN DELIVERED.");
                 }

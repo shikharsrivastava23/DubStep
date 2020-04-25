@@ -120,7 +120,6 @@ public class RiderMapsActivity extends FragmentActivity implements OnMapReadyCal
                 Intent intent = new Intent(RiderMapsActivity.this,  RiderMainActivity.class);
                 startActivity(intent);
 
-
             }
         });
 
