@@ -116,6 +116,8 @@ public class RiderMapsActivity extends FragmentActivity implements OnMapReadyCal
             public void onClick(View v) {
                 Toast.makeText(RiderMapsActivity.this,"ORDER DELIVERED!",Toast.LENGTH_SHORT).show();
                 OrderNodeRef.child(Customer_UID).child("Status").setValue("2");
+                Intent intent = new Intent(RiderMapsActivity.this,  RiderMainActivity.class);
+                startActivity(intent);
 
 
             }
